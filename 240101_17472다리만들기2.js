@@ -13,7 +13,7 @@ rl.on('line', line => {
   solution(input);
 });
 
-// 섬을 구분하기 위한 로직
+// 섬 구분 로직
 const dfs = (board, num, x, y, coordinates) => {
   const dirs = [
     [0, 1],
@@ -35,7 +35,6 @@ const dfs = (board, num, x, y, coordinates) => {
   }
 };
 
-// 섬을 분리할 때 각 섬의 좌표를 함께 저장
 const makeBoard = (input, n, m) => {
   let num = 2;
   const board = [];
@@ -122,7 +121,7 @@ const solution = input => {
   const parents = Array.from({ length: n + 1 }, (_, i) => i);
 
   for (const [s, e, w] of edges) {
-    if (cnt === n - 1) {
+    if (cnt === num - 1) {
       break;
     }
 
