@@ -1,19 +1,19 @@
-const readline = require('readline');
+// const readline = require('readline');
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
 
-const input = [];
+// const input = [];
 
-rl.on('line', line => {
-  input.push(line);
-}).on('close', () => {
-  solution(input);
-});
+// rl.on('line', line => {
+//   input.push(line);
+// }).on('close', () => {
+//   solution(input);
+// });
 
-// 섬 구분 로직
+// num = 섬 번호, coordinates = 육지 좌표
 const dfs = (board, num, x, y, coordinates) => {
   const dirs = [
     [0, 1],
@@ -23,7 +23,7 @@ const dfs = (board, num, x, y, coordinates) => {
   ];
 
   board[x][y] = num;
-  coordinates.push([x, y, num, 0]);
+  coordinates.push([x, y, num, 0]); // [좌표 x, 좌표 y, 섬 번호, 거리]
   for (const [dx, dy] of dirs) {
     const nx = x + dx;
     const ny = y + dy;
@@ -56,7 +56,7 @@ const makeBoard = (input, n, m) => {
   return [board, coordinates, num - 2];
 };
 
-// 각 섬의 좌표에서 다른 섬에 도달할 수 있을 때 edge로 추가
+// coordinates = 육지 좌표
 const makeEdges = (board, coordinates) => {
   const edges = [];
   const dirs = [
@@ -90,7 +90,10 @@ const makeEdges = (board, coordinates) => {
     }
   }
 
+  // 거리를 기준으로 오름차순 정렬
   edges.sort((a, b) => a[2] - b[2]);
+
+  console.log(edges);
 
   return edges;
 };
@@ -175,4 +178,4 @@ const p4 = [
   '1 1 1 0 1 1 1'
 ];
 
-solution(p4);
+solution(p1);
