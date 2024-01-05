@@ -13,7 +13,7 @@ rl.on('line', (line) => {
   solution(input);
 });
 
-const dfs = (list, ban, n, answer) => {
+const dfs = (list, ban, check, n, answer) => {
   if (n === ban) {
     return;
   }
@@ -21,7 +21,10 @@ const dfs = (list, ban, n, answer) => {
     answer[0]++;
   } else {
     for (const next of list[n]) {
-      dfs(list, ban, next, answer);
+      if (!check[next]) {
+        check[next] = true;
+        dfs(list, ban, check, next, answer);
+      }
     }
   }
 };
@@ -33,6 +36,7 @@ const solution = (input) => {
   const ban = input[2] * 1;
   const list = Array.from({ length: n }, () => []);
   const answer = [0];
+  const check = Array.from({ length: n }, () => false);
 
   for (let i = 0; i < parents.length; i++) {
     const parent = parents[i];
@@ -40,10 +44,12 @@ const solution = (input) => {
       start = i;
     } else {
       list[parent].push(i);
+      list[i].push(parent);
     }
   }
 
-  dfs(list, ban, start, answer);
+  check[start] = true;
+  dfs(list, ban, check, start, answer);
 
   console.log(answer[0]);
 };
