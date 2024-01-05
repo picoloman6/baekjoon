@@ -14,17 +14,23 @@ rl.on('line', (line) => {
 });
 
 const dfs = (list, ban, check, n, answer) => {
+  check[n] = true;
   if (n === ban) {
     return;
   }
+
   if (list[n].length === 0) {
     answer[0]++;
   } else {
+    let child = 0;
     for (const next of list[n]) {
       if (!check[next]) {
-        check[next] = true;
         dfs(list, ban, check, next, answer);
+        child++;
       }
+    }
+    if (child === 0) {
+      answer[0]++;
     }
   }
 };
@@ -48,7 +54,7 @@ const solution = (input) => {
     }
   }
 
-  check[start] = true;
+  console.log(list);
   dfs(list, ban, check, start, answer);
 
   console.log(answer[0]);
